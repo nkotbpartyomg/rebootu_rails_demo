@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Raw text:</strong>
+  <%= @summary.raw_text %>
+</p>
+
+<p>
+  <strong>Summarized text:</strong>
+  <%= @summary.summarized_text %>
+</p>
+
+<%= link_to 'Edit', edit_summary_path(@summary) %> |
+<%= link_to 'Back', summaries_path %>
