@@ -25,6 +25,7 @@ class SummariesController < ApplicationController
   # POST /summaries.json
   def create
     @summary = Summary.new(summary_params)
+    @summary.summarized_text = Summarizer.call(@summary.raw_text)
 
     respond_to do |format|
       if @summary.save
@@ -65,6 +66,15 @@ class SummariesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_summary
       @summary = Summary.find(params[:id])
+    end
+
+    def generate_summary(text)
+      sentences = text.gsub(/\s+/, ' ').strip.split(/\.|\?|!/)
+      sentences_sorted = sentences.sort_by { |sentence| sentence.length }
+      one_third = sentences_sorted.length / 3
+      one_third = sentences_sorted.slice(one_third, one_third + 1)
+      ideal_sentences = sentences_sorted.select { |sentence| sentence =~ /is|are/ }
+      ideal_sentences.join(".")
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

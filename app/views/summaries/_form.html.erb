@@ -13,11 +13,7 @@
 
   <div class="field">
     <%= f.label :raw_text %><br>
-    <%= f.text_area :raw_text %>
-  </div>
-  <div class="field">
-    <%= f.label :summarized_text %><br>
-    <%= f.text_area :summarized_text %>
+    <%= f.text_area :raw_text, :cols => 100, :rows => 10 %>
   </div>
   <div class="actions">
     <%= f.submit %>
